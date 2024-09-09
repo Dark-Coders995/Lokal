@@ -5,25 +5,27 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 
+
 import androidx.compose.ui.tooling.preview.Preview
-import com.works.lokal.navigation.Navigation
+import androidx.navigation.compose.rememberNavController
+
+import com.works.lokal.screens.HomeScreen
 import com.works.lokal.ui.theme.LokalTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             MyApp{
-                Navigation()
+                val navController = rememberNavController()
+                HomeScreen(navController)
             }
         }
     }
 }
 
 @Composable
-fun MyApp(content : @Composable () -> Unit)
-{
+fun MyApp(content : @Composable () -> Unit) {
     LokalTheme {
         content()
     }
@@ -31,9 +33,9 @@ fun MyApp(content : @Composable () -> Unit)
 
 @Preview(showBackground =  true)
 @Composable
-fun DefaultPreview()
-{
+fun DefaultPreview() {
     MyApp{
-        Navigation()
+        val navController = rememberNavController()
+        HomeScreen(navController)
     }
 }

@@ -18,13 +18,15 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.works.lokal.navigation.JobsScreens
+import com.works.lokal.navigation.Navigation
 import com.works.lokal.widgets.BottomNavigationBar
 import com.works.lokal.widgets.JobRow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -44,10 +46,7 @@ fun HomeScreen(navController: NavController) {
             BottomAppBar { BottomNavigationBar(navController = navController) }
         }
     ) {
-        MainContent(
-            modifier = Modifier.padding(it),
-            navController = navController
-        )
+        Navigation(navController , modifier = Modifier.padding(it))
     }
 }
 
@@ -55,7 +54,6 @@ fun HomeScreen(navController: NavController) {
 @Composable
 fun MainContent(
     navController: NavController,
-    modifier: Modifier,
     movieList: List<String> = listOf(
         "Avatar",
         "300",
@@ -66,8 +64,7 @@ fun MainContent(
     )
 ) {
     Column(
-        modifier = modifier
-            .padding(12.dp)
+        modifier = Modifier.padding(12.dp)
     ) {
         LazyColumn {
             items(

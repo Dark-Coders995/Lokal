@@ -44,21 +44,21 @@ fun BottomNavigationBar(navController: NavController) {
             }
         )
         NavigationBarItem(
-                alwaysShowLabel = true,
-        icon = {
-            Icon(
-                imageVector =  Icons.Filled.Favorite,
-                contentDescription = "Bookmarks"
+            alwaysShowLabel = true,
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.Favorite,
+                    contentDescription = "Bookmarks"
                 )
-        },
-        selected = selectedItem,
-        label = {
-            Text(text = "Bookmarks")
-        },
-        onClick = {
-            selectedItem = true
-            navController.navigate(route = JobsScreens.HomeScreen.name)
-        }
+            },
+            selected = selectedItem,
+            label = {
+                Text(text = "Bookmarks")
+            },
+            onClick = {
+                selectedItem = true
+                navController.navigate(route = JobsScreens.BookMarkScreen.name)
+            }
         )
         /*
         navItems.forEachIndexed { index, item ->
