@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.works.lokal.screens.ResponsesListScreen
 
-import com.works.lokal.screens.HomeScreen
 import com.works.lokal.ui.theme.LokalTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApp{
                 val navController = rememberNavController()
-                HomeScreen(navController)
+                ResponsesListScreen(navController)
             }
         }
     }
@@ -36,6 +36,6 @@ fun MyApp(content : @Composable () -> Unit) {
 fun DefaultPreview() {
     MyApp{
         val navController = rememberNavController()
-        HomeScreen(navController)
+        ResponsesListScreen(navController)
     }
 }

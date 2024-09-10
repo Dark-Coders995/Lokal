@@ -1,66 +1,25 @@
 package com.works.lokal.widgets
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.Icon
 
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-
-import androidx.compose.runtime.mutableStateOf
-
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.navigation.NavController
-import com.works.lokal.navigation.JobsScreens
+import androidx.navigation.NavHostController
+import com.works.lokal.nav.NavItem
+
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
-    var selectedItem by rememberSaveable { mutableStateOf(false) }
+fun BottomNavigationBar(navController: NavHostController) {
+    val navItems = listOf(NavItem.Home, NavItem.BookMark)
+    var selectedItem by rememberSaveable { mutableIntStateOf(0) }
 
     NavigationBar {
-        NavigationBarItem(
-            alwaysShowLabel = true,
-            icon = {
-                Icon(
-                    imageVector = Icons.Filled.Home,
-                    contentDescription = "HomePage"
-                )
-            },
-            selected = selectedItem,
-            label = {
-                Text(
-                    text = "Home"
-                )
-            },
-            onClick = {
-                selectedItem = true
-                navController.navigate(route = JobsScreens.HomeScreen.name)
-            }
-        )
-        NavigationBarItem(
-            alwaysShowLabel = true,
-            icon = {
-                Icon(
-                    imageVector = Icons.Filled.Favorite,
-                    contentDescription = "Bookmarks"
-                )
-            },
-            selected = selectedItem,
-            label = {
-                Text(text = "Bookmarks")
-            },
-            onClick = {
-                selectedItem = true
-                navController.navigate(route = JobsScreens.BookMarkScreen.name)
-            }
-        )
-        /*
         navItems.forEachIndexed { index, item ->
             NavigationBarItem(
                 alwaysShowLabel = true,
@@ -78,6 +37,6 @@ fun BottomNavigationBar(navController: NavController) {
                     }
                 }
             )
-        }*/
+        }
     }
 }

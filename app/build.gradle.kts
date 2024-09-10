@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.realm.kotlin)
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 android {
@@ -47,6 +48,7 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/INDEX.LIST"
         }
     }
 }
@@ -77,4 +79,8 @@ dependencies {
     implementation(libs.bundles.ktor)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.bundles.ktor)
+    implementation(libs.compose.lifecycle)
+    implementation(libs.bundles.koin)
+    implementation(libs.bundles.coroutines)
 }
