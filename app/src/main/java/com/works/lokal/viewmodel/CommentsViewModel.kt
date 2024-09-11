@@ -24,24 +24,44 @@ class ResponsesViewModel(
     private val _responsesUIState = MutableStateFlow(ResponsesUIState())
     val responsesUIState: StateFlow<ResponsesUIState> = _responsesUIState.asStateFlow()
 
+    private var currentPage = 1
+    private val pageSize = 20
+    private var endReached = false
+    private var isLoading = false
     init {
         getResponses()
     }
 
-    private fun getResponses() {
+    fun canLoadMore(): Boolean {
+        return !endReached && !isLoading
+    }
 
+
+    fun getResponses() {
+        if (isLoading || endReached) return
+
+        isLoading = true
         _responsesUIState.value =
-            _responsesUIState.value.copy(isLoading = true, responses = emptyList())
+            _responsesUIState.value.copy(isLoading = true)
 
         viewModelScope.launch {
-            when (val result = repository.getResponses()) {
+            when (val result = repository.getResponses(currentPage, pageSize)) {
 
                 is NetworkResult.Success -> {
-                    _responsesUIState.update {
-                        it.copy(
-                            responses = result.data,
-                            isLoading = false,
-                        )
+                    val newResponses = result.data
+                    if (newResponses.isNotEmpty()) {
+                        currentPage++
+                        _responsesUIState.update {
+                            it.copy(
+                                responses = it.responses + newResponses,
+                                isLoading = false
+                            )
+                        }
+                    } else {
+                        endReached = true
+                        _responsesUIState.update {
+                            it.copy(isLoading = false)
+                        }
                     }
                 }
 
@@ -54,6 +74,7 @@ class ResponsesViewModel(
                     }
                 }
             }
+            isLoading = false
         }
     }
 }

@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 interface ResponsesRepository {
-    suspend fun getResponses(): NetworkResult<List<Response>>
+    suspend fun getResponses(page: Int, limit: Int): NetworkResult<List<Response>>
 }
 
 class ResponsesRepositoryImpl(
@@ -15,10 +15,10 @@ class ResponsesRepositoryImpl(
     private val dispatcher: CoroutineDispatcher
 ) : ResponsesRepository {
 
-    override suspend fun getResponses(): NetworkResult<List<Response>> {
+    override suspend fun getResponses(page: Int, limit: Int): NetworkResult<List<Response>> {
         return withContext(dispatcher) {
             try {
-                val response = apiService.getResponses()
+                val response = apiService.getResponses(page, limit)
                 NetworkResult.Success(response)
             } catch (e: Exception) {
                 NetworkResult.Error(e.message ?: "Something went wrong")

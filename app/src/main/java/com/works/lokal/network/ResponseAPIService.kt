@@ -30,9 +30,14 @@ val httpClient = HttpClient {
 
 class ResponsesAPIService {
 
-    suspend fun getResponses(): List<Response> {
+    suspend fun getResponses(page: Int, limit: Int): List<Response> {
         return httpClient
-            .get("https://jsonplaceholder.typicode.com/comments")
+            .get("https://jsonplaceholder.typicode.com/comments") {
+                url {
+                    parameters.append("_page", page.toString())
+                    parameters.append("_limit", limit.toString())
+                }
+            }
             .body<List<Response>>()
     }
 }
